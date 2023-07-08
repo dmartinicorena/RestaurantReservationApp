@@ -1,5 +1,6 @@
 package com.example.restaurantreservationapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -18,34 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tabLayout.findViewById(R.id.tabs);
-        viewPager2.findViewById(R.id.viewPager);
-        adapter = new MyViewAdapter(this);
-        viewPager2.setAdapter(adapter);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
-            }
+        ActionBar.Tab tab1 = actionbar.newTab().setText("Frag1");
+        tab1.setTabListener(new MyTabListener(this,new FragmentLogin()));
+        actionbar.addTab(tab1);
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                tabLayout.getTabAt(position).select();
-            }
-        });
+        ActionBar.Tab tab2 = actionbar.newTab().setText("Frag2");
+        tab2.setTabListener(new MyTabListener(this,new FragmentRegister()));
+        actionbar.addTab(tab2);
     }
-}
+    }

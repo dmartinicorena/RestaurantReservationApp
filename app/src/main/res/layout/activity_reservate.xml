@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#3C3C3C"
-    android:backgroundTint="#555555"
-    android:id="@+id/layoutMain"
-    tools:context=".MainActivity">
-
-
+    tools:context=".Reservate">
 
 </FrameLayout>
