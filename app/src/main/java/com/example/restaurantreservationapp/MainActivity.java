@@ -10,9 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    ViewPager2 viewPager2;
-    MyViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        ActionBar.Tab tab1 = actionbar.newTab().setText("Frag1");
+        ActionBar.Tab tab1 = actionbar.newTab().setText("Login");
         tab1.setTabListener(new MyTabListener(this,new FragmentLogin()));
         actionbar.addTab(tab1);
 
-        ActionBar.Tab tab2 = actionbar.newTab().setText("Frag2");
+        ActionBar.Tab tab2 = actionbar.newTab().setText("Register");
         tab2.setTabListener(new MyTabListener(this,new FragmentRegister()));
         actionbar.addTab(tab2);
     }

@@ -4,6 +4,7 @@ public class Reservation {
     private int id;
     private String date;
     private String hour;
+    private  int id_user;
 
     public Reservation(){
         this.id = 0;
@@ -38,5 +39,13 @@ public class Reservation {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public void setUserID(int id_user) {
+        this.id_user = id_user;
+    }
+
+    public int getUserID() {
+        return id_user;
     }
 }

@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class Database {
 
-    public class Banco extends SQLiteOpenHelper {
+    public static class Banco extends SQLiteOpenHelper {
         private static final String TAG = "sql";
         private static final String NAME_DATABASE = "alchemist.sqlite";
         private static final int VERSION = 1;
