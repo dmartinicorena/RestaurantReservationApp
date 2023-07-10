@@ -11,8 +11,9 @@ public class Reservation {
         this.date = "";
         this.hour = "";
     }
-    public Reservation(String date,String hour){
+    public Reservation(int id_user, String date,String hour){
         this.id = 0;
+        this.id_user = id_user;
         this.date = date;
         this.hour = hour;
     }

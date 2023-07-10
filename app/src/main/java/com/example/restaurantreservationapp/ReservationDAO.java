@@ -13,8 +13,8 @@ public class ReservationDAO {
         public ReservationDAO(Database.Banco b){
             this.banco = b;
         }
-        public long save(Reservation reservation){
-            long id = reservation.getId();
+        public int save(Reservation reservation){
+            int id = reservation.getId();
             SQLiteDatabase db = banco.getWritableDatabase();
             try{
                 ContentValues values = new ContentValues();
@@ -23,7 +23,7 @@ public class ReservationDAO {
                 values.put("hour",reservation.getHour());
                 if(id==0){
                     //new reservation
-                    id = db.insert("reservation","",values);
+                    id = (int) db.insert("reservation","",values);
                 }
                 else{
                     //update reservation

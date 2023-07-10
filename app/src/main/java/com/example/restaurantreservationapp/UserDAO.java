@@ -75,12 +75,12 @@ public class UserDAO {
             return null;
         }
 
-    public List<User> selectUser(int id){
+    public List<User> selectUser(String login){
         SQLiteDatabase db = banco.getReadableDatabase();
         Cursor c = null;
         try{
             //c = db.query("user",null,null,null,null,null,null);
-            c = db.rawQuery("SELECT * FROM user WHERE id = ?",new String[] {String.valueOf(id)});
+            c = db.rawQuery("SELECT * FROM user WHERE login = ?",new String[] {login});
         }
         catch (Exception e){
             e.printStackTrace();

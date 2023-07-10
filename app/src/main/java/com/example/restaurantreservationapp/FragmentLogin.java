@@ -1,12 +1,22 @@
 package com.example.restaurantreservationapp;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,23 +30,16 @@ public class FragmentLogin extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
 
     public FragmentLogin() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentLogin.
-     */
-    // TODO: Rename and change types and number of parameters
+    EditText login;
+    EditText pass;
+    Button btnLogin;
+    Database.Banco banco;
+    ArrayList<User> saveReg;
     public static FragmentLogin newInstance(String param1, String param2) {
         FragmentLogin fragment = new FragmentLogin();
         Bundle args = new Bundle();
@@ -45,14 +48,20 @@ public class FragmentLogin extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    private Context mContext;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext=context;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
+
     }
 
     @Override
@@ -61,4 +70,43 @@ public class FragmentLogin extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Activity activity= (Activity) mContext;
+        login.findViewById(R.id.loginInput);
+        pass.findViewById(R.id.passInput);
+        btnLogin.findViewById(R.id.btnLogin);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserDAO alunodao = new UserDAO(banco);
+                List<User> users = alunodao.selectAll();
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getLogin().equals(login.toString())){
+                        if (users.get(i).getPass().equals(pass.toString())){
+                            saveReg.add(users.get(i));
+
+                            Bundle save = new Bundle();
+                            save.putSerializable("arr",saveReg);
+                            Intent sender = new Intent(getContext(), Reserve.class);
+                            sender.putExtras(save);
+                            startActivity(sender);
+                        }
+                        else {
+
+                        }
+                    }
+                    else {
+
+                    }
+                }
+            }
+        });
+
+    }
+
+
 }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Use the {@link FragmentRegister#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentRegister extends Fragment implements View.OnClickListener {
+public class FragmentRegister extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,7 +56,6 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        btnReg.setOnClickListener(this);
         banco = new Database.Banco(getContext());
     }
 
@@ -74,19 +73,22 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
         login = view.findViewById(R.id.loginRegister);
         pass = view.findViewById(R.id.passReservation);
         btnReg = view.findViewById(R.id.btnSignUp);
+
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = new User(name.toString(),login.toString(),pass.toString());
+                UserDAO userDAO = new UserDAO(banco);
+                user.setId(userDAO.save(user));
+                saveReg.add(user);
+
+                Bundle save = new Bundle();
+                save.putSerializable("arr",saveReg);
+                Intent sender = new Intent(getContext(), Reserve.class);
+                sender.putExtras(save);
+                startActivity(sender);
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        User user = new User(name.toString(),login.toString(),pass.toString());
-        UserDAO userDAO = new UserDAO(this.banco);
-        userDAO.save(user);
-        saveReg.add(user);
-
-        Bundle save = new Bundle();
-        save.putSerializable("arr",saveReg);
-        Intent sender = new Intent(getContext(), Reservate.class);
-        sender.putExtras(save);
-        startActivity(sender);
-    }
 }
